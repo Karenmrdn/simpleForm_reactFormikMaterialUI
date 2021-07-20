@@ -1,70 +1,72 @@
-import React, { useState } from "react";
-import JobSelector from "./JobSelector";
+import React from "react";
+// import JobSelector from "./JobSelector";
 import styles from "./MainForm.module.css";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import { Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import { useFormik } from "formik";
 
 const MainForm = () => {
-  const [nameValue, setNameValue] = useState("");
-  const [jobValue, setJobValue] = useState("Front End Dev");
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+  /* 1. We are passing initial values to our 'useFormik' hook,
+  props must match the 'name' attributes of TextFields.
+  2. We need to add new attributes: 'value=formik.values.[name]' 
+  and 'onChange={formik.handleChange}'
+  3. Set 'onSubmit' of the form equal to 'formik.handleSubmit'
+  and specify 'onSubmit' prop in 'useFormik' */
+  const formik = useFormik({
+    initialValues: {
+      name: "Andrew",
+      job: "Front End Dev",
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+    validate: (values) => {
+      let errors = {};
 
-  const nameChangeHandler = (e) => {
-    setNameValue(e.target.value);
-  };
+      if (!values.name.trim()) {
+        errors.name = "Required";
+      }
 
-  const onJobChange = (newValue) => {
-    setJobValue(newValue);
-  };
+      if (!values.email.trim()) {
+        errors.email = "Required";
+      }
 
-  const emailChangeHandler = (e) => {
-    setEmailValue(e.target.value);
-  };
+      if (!values.password.trim()) {
+        errors.password = "Required";
+      }
 
-  const passwordChangeHandler = (e) => {
-    setPasswordValue(e.target.value);
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    const resultData = {
-      nameValue,
-      jobValue,
-      emailValue,
-      passwordValue,
-    };
-
-    console.log(resultData);
-  };
+      return errors;
+    },
+  });
 
   return (
-    <form onSubmit={submitHandler} className={styles.wrapper}>
+    <form onSubmit={formik.handleSubmit} className={styles.wrapper}>
       <Typography variant="h3">Simple form</Typography>
 
       <div>
         <TextField
           label="Name"
           type="text"
-          id="nameInput"
-          value={nameValue}
-          onChange={nameChangeHandler}
+          name="name"
+          value={formik.values.name}
+          onChange={formik.handleChange}
           margin="normal"
         />
       </div>
 
-      <JobSelector defaultValue={jobValue} onChange={onJobChange} />
+      {/* <JobSelector value={jobValue} onChange={onJobChange} /> */}
 
       <div>
         <TextField
           label="Email"
           type="text"
-          id="emailInput"
-          value={emailValue}
-          onChange={emailChangeHandler}
+          name="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
           margin="normal"
         />
       </div>
@@ -73,9 +75,9 @@ const MainForm = () => {
         <TextField
           label="Password"
           type="password"
-          id="passwordInput"
-          value={passwordValue}
-          onChange={passwordChangeHandler}
+          name="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
           margin="normal"
         />
       </div>

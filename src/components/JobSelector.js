@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const JobSelector = ({ defaultValue, onChange }) => {
+const JobSelector = ({ value, onChange }) => {
   const classes = useStyles();
 
   const jobChangeHandler = (e) => {
@@ -32,7 +32,7 @@ const JobSelector = ({ defaultValue, onChange }) => {
         <Select
           labelId="demo-simple-select-required-label"
           id="demo-simple-select-required"
-          value={defaultValue}
+          value={value}
           onChange={jobChangeHandler}
           className={classes.selectEmpty}
         >
@@ -45,7 +45,7 @@ const JobSelector = ({ defaultValue, onChange }) => {
       </FormControl>
       {/* Job &nbsp;
       <select onChange={jobChangeHandler} name="jobs" id="job-selector">
-        <option value={defaultValue}>{defaultValue}</option>
+        <option value={value}>{value}</option>
         <option value="Back End Dev">Back End Dev</option>
         <option value="Project Manager">Project Manager</option>
         <option value="Head Hunter">Head Hunter</option>
