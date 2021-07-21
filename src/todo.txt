@@ -1,0 +1,6 @@
+1.+ Удалить файл MainForm.module.css, заменить его хуком стилей из MaterialUI
+2.+ Убрать скрытый div и добавить helperText
+3.+ Использовать theme из MaterialUI
+4.+ Сделать валидацию с помощью Yup (validationSchema formik yup)
+
+5. Выбирая значение в селекте, инпуты должны меняться

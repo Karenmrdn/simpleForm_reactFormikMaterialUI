@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 const ValidatedTextField = (props) => {
   return (
@@ -13,12 +13,9 @@ const ValidatedTextField = (props) => {
         onBlur={props.onBlur}
         margin="normal"
         error={Boolean(props.error) && props.isTouched}
+        helperText={props.isTouched && props.error ? props.error : null}
+        inputProps={props.inputProps}
       />
-      {props.isTouched && props.error ? (
-        <Typography color="error" display="block">
-          {props.error}
-        </Typography>
-      ) : null}
     </div>
   );
 };
