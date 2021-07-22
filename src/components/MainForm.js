@@ -1,10 +1,10 @@
 import React from "react";
-import JobSelector from "./JobSelector";
+import JobSelector from "../screens/mainForm/JobSelector";
 import SaveIcon from "@material-ui/icons/Save";
 import { Typography, Button, TextField, Grid } from "@material-ui/core";
 import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
-import mainFormValidationScheme from "../validation/yupValidation";
+import mainFormValidationScheme from "../validation/mainFormValidationScheme";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -51,6 +51,7 @@ const MainForm = () => {
           break;
         default:
           console.log("Something went wrong");
+          console.log();
       }
 
       console.log(result);
