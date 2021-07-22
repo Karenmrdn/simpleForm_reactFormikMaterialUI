@@ -1,11 +1,10 @@
 import React from "react";
 import JobSelector from "./JobSelector";
 import SaveIcon from "@material-ui/icons/Save";
-import { Typography, Button } from "@material-ui/core";
+import { Typography, Button, TextField, Grid } from "@material-ui/core";
 import { useFormik } from "formik";
-import ValidatedTextField from "./ValidatedTextField";
 import { makeStyles } from "@material-ui/core/styles";
-import yupValidation from "../validation/yupValidation";
+import mainFormValidationScheme from "../validation/yupValidation";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -29,45 +28,80 @@ const MainForm = () => {
       job: "Front End Dev",
       email: "",
       password: "",
-      experience: null,
-      hiredCount: null,
+      experience: "",
+      hiredCount: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      const result = {
+        name: values.name,
+        job: values.job,
+        email: values.email,
+        password: values.password,
+      };
+
+      switch (values.job) {
+        case "Front End Dev":
+        case "Back End Dev":
+          break;
+        case "Project Manager":
+          result.experience = values.experience;
+          break;
+        case "Head Hunter":
+          result.hiredCount = values.hiredCount;
+          break;
+        default:
+          console.log("Something went wrong");
+      }
+
+      console.log(result);
     },
-    validationSchema: yupValidation,
+    validationSchema: mainFormValidationScheme,
   });
 
   const renderSwitch = (param) => {
-    switch (formik.values.job) {
+    switch (param) {
       case "Front End Dev":
       case "Back End Dev":
         break;
       case "Project Manager":
         return (
-          <ValidatedTextField
+          <TextField
             label="Experience"
             type="number"
             name="experience"
+            margin="normal"
             value={formik.values.experience}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.errors.experience}
-            isTouched={formik.touched.experience}
+            error={
+              Boolean(formik.errors.experience) && formik.touched.experience
+            }
+            helperText={
+              Boolean(formik.errors.experience) && formik.touched.experience
+                ? formik.errors.experience
+                : null
+            }
             inputProps={{ min: 0, max: 20, step: 0.5 }}
           />
         );
       case "Head Hunter":
         return (
-          <ValidatedTextField
+          <TextField
             label="Hired people count"
             type="number"
             name="hiredCount"
+            margin="normal"
             value={formik.values.hiredCount}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.errors.hiredCount}
-            isTouched={formik.touched.hiredCount}
+            error={
+              Boolean(formik.errors.hiredCount) && formik.touched.hiredCount
+            }
+            helperText={
+              Boolean(formik.errors.hiredCount) && formik.touched.hiredCount
+                ? formik.errors.hiredCount
+                : null
+            }
             inputProps={{ min: 0, step: 1 }}
           />
         );
@@ -78,55 +112,72 @@ const MainForm = () => {
 
   return (
     <form onSubmit={formik.handleSubmit} className={classes.wrapper}>
-      <Typography variant="h3" color="primary">
-        Simple form
-      </Typography>
+      <Grid container direction="column" style={{ maxWidth: "60vh" }}>
+        <Typography variant="h3" color="primary">
+          Simple form
+        </Typography>
 
-      <ValidatedTextField
-        label="Name"
-        type="text"
-        name="name"
-        value={formik.values.name}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.errors.name}
-        isTouched={formik.touched.name}
-      />
+        <TextField
+          label="Name"
+          type="text"
+          name="name"
+          margin="normal"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={Boolean(formik.errors.name) && formik.touched.name}
+          helperText={
+            Boolean(formik.errors.name) && formik.touched.name
+              ? formik.errors.name
+              : null
+          }
+        />
 
-      <JobSelector value={formik.values.job} onChange={formik.handleChange} />
+        <JobSelector value={formik.values.job} onChange={formik.handleChange} />
 
-      {renderSwitch(formik.values.job)}
+        {renderSwitch(formik.values.job)}
 
-      <ValidatedTextField
-        label="Email"
-        type="text"
-        name="email"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.errors.email}
-        isTouched={formik.touched.email}
-      />
+        <TextField
+          label="Email"
+          type="text"
+          name="email"
+          margin="normal"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={Boolean(formik.errors.email) && formik.touched.email}
+          helperText={
+            Boolean(formik.errors.email) && formik.touched.email
+              ? formik.errors.email
+              : null
+          }
+        />
 
-      <ValidatedTextField
-        label="Password"
-        type="password"
-        name="password"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.errors.password}
-        isTouched={formik.touched.password}
-      />
+        <TextField
+          label="Password"
+          type="password"
+          name="password"
+          margin="normal"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={Boolean(formik.errors.password) && formik.touched.password}
+          helperText={
+            Boolean(formik.errors.password) && formik.touched.password
+              ? formik.errors.password
+              : null
+          }
+        />
 
-      <Button
-        startIcon={<SaveIcon />}
-        variant="contained"
-        color="secondary"
-        type="submit"
-      >
-        Submit form
-      </Button>
+        <Button
+          startIcon={<SaveIcon />}
+          variant="contained"
+          color="secondary"
+          type="submit"
+        >
+          Submit form
+        </Button>
+      </Grid>
     </form>
   );
 };
