@@ -1,0 +1,3 @@
+Open api, fetch data from api and set it in context,
+use this data from some component,
+map through this list and show result as jsx
