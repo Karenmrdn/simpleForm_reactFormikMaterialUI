@@ -2,5 +2,8 @@
 2.+ Убрать скрытый div и добавить helperText
 3.+ Использовать theme из MaterialUI
 4.+ Сделать валидацию с помощью Yup (validationSchema formik yup)
+5.+ Выбирая значение в селекте, инпуты должны меняться
 
-5. Выбирая значение в селекте, инпуты должны меняться
+Use any open api, fetch data from api and set it in context,
+use this data from some component,
+map through this list and show result as jsx
