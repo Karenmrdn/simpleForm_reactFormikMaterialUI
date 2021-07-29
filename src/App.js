@@ -3,12 +3,15 @@ import ThemeProvider from "@material-ui/styles/ThemeProvider";
 // import MainForm from "./components/MainForm";
 import theme from "./config/theme";
 import UsersContainer from "./components/UsersContainer";
+import { ProvideUsers } from "./hooks/use-users";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       {/* <MainForm /> */}
-      <UsersContainer />
+      <ProvideUsers>
+        <UsersContainer />
+      </ProvideUsers>
     </ThemeProvider>
   );
 }

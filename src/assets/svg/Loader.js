@@ -1,6 +1,6 @@
 import { purple } from "@material-ui/core/colors";
 
-const Loader = () => {
+const Loader = ({ style, className }) => {
   return (
     <svg
       width="100"
@@ -8,6 +8,8 @@ const Loader = () => {
       viewBox="0 0 44 44"
       xmlns="http://www.w3.org/2000/svg"
       stroke={purple[500]}
+      style={style}
+      className={className}
     >
       <g fill="none" fillRule="evenodd" strokeWidth="2">
         <circle cx="22" cy="22" r="1">
