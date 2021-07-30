@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useUsers } from "../hooks/use-users";
+import { useUsers } from "../../hooks/use-users";
 import User from "./User";
-import Loader from "../assets/svg/Loader";
+import Loader from "../../assets/svg/Loader";
 
 const Users = () => {
   const { users, fetchUsers } = useUsers();
