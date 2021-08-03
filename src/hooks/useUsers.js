@@ -18,14 +18,14 @@ export const useUsers = () => {
 
 export const useProvideUsers = () => {
   const [users, setUsers] = useState([]);
-  const fetchUsers = useCallback((disableIsLoading) => {
+  const fetchUsers = useCallback((onSuccess) => {
     instance
       .get("users")
       .then((response) => {
         setUsers(response.data);
-        disableIsLoading();
+        onSuccess();
       })
-      .catch((error) => disableIsLoading());
+      .catch((error) => onSuccess());
   }, []);
 
   return {

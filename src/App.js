@@ -1,18 +1,32 @@
 import React from "react";
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
-// import MainForm from "./components/MainForm";
-import theme from "./config/theme";
-import Users from "./screens/users/Users";
-import { ProvideUsers } from "./hooks/use-users";
+import MainForm from "./components/MainForm";
+import Users from "./screens/Users/Users";
+import { ProvideUsers } from "./hooks/useUsers";
+import { Redirect, Route, Switch } from "react-router-dom";
+import NotFound from "./screens/NotFound/NotFound";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      {/* <MainForm /> */}
-      <ProvideUsers>
-        <Users />
-      </ProvideUsers>
-    </ThemeProvider>
+    <>
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/users" />
+        </Route>
+        <Route path="/main-form">
+          <MainForm />
+        </Route>
+        <Route path="/users">
+          <ProvideUsers>
+            <Users />
+          </ProvideUsers>
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
+    </>
   );
 }
 

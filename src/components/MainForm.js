@@ -1,5 +1,5 @@
 import React from "react";
-import JobSelector from "../screens/mainForm/JobSelector";
+import JobSelector from "../screens/MainForm/JobSelector";
 import SaveIcon from "@material-ui/icons/Save";
 import { Typography, Button, TextField, Grid } from "@material-ui/core";
 import { useFormik } from "formik";
