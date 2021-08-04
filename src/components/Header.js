@@ -31,7 +31,7 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Simple dimple app
+            Test app
           </Typography>
           <NavLink
             to="/users"
@@ -46,6 +46,13 @@ export default function ButtonAppBar() {
             activeClassName={classes.active}
           >
             FORM
+          </NavLink>
+          <NavLink
+            to="/class-form"
+            className={classes.link}
+            activeClassName={classes.active}
+          >
+            CLASSFORM
           </NavLink>
         </Toolbar>
       </AppBar>
