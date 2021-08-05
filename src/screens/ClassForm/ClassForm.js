@@ -15,8 +15,8 @@ class ClassForm extends Component {
   constructor() {
     super();
     this.state = {
-      enteredFirstName: "",
-      enteredLastName: "",
+      firstName: "",
+      lastName: "",
       firstNameIsTouched: false,
       lastNameIsTouched: false,
       timer: 0,
@@ -39,28 +39,19 @@ class ClassForm extends Component {
     clearInterval(this.state.intervalId);
   };
 
-  firstNameChangeHandler = (e) => {
-    this.setState({ enteredFirstName: e.target.value });
+  inputValueChangeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
-  lastNameChangeHandler = (e) => {
-    this.setState({ enteredLastName: e.target.value });
-  };
-
-  firstNameBlurHandler = () => {
-    this.setState({ firstNameIsTouched: true });
-  };
-
-  lastNameBlurHandler = () => {
-    this.setState({ lastNameIsTouched: true });
+  inputValueBlurHandler = (isTouchedValue) => () => {
+    this.setState({ [isTouchedValue]: true });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
 
     const formIsValid =
-      !isEmpty(this.state.enteredFirstName) &&
-      !isEmpty(this.state.enteredLastName);
+      !isEmpty(this.state.firstName) && !isEmpty(this.state.lastName);
 
     if (!formIsValid) {
       this.setState({
@@ -71,13 +62,13 @@ class ClassForm extends Component {
     }
 
     console.log({
-      firstName: this.state.enteredFirstName,
-      lastName: this.state.enteredLastName,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
     });
 
     this.setState({
-      enteredFirstName: "",
-      enteredLastName: "",
+      firstName: "",
+      lastName: "",
       firstNameIsTouched: false,
       lastNameIsTouched: false,
     });
@@ -101,16 +92,15 @@ class ClassForm extends Component {
             type="text"
             name="firstName"
             margin="normal"
-            value={this.state.enteredFirstName}
-            onChange={this.firstNameChangeHandler}
-            onBlur={this.firstNameBlurHandler}
+            value={this.state.firstName}
+            onChange={this.inputValueChangeHandler}
+            onBlur={this.inputValueBlurHandler("firstNameIsTouched")}
             error={
-              this.state.firstNameIsTouched &&
-              isEmpty(this.state.enteredFirstName)
+              this.state.firstNameIsTouched && isEmpty(this.state.firstName)
             }
             helperText={
               this.state.firstNameIsTouched &&
-              isEmpty(this.state.enteredFirstName) &&
+              isEmpty(this.state.firstName) &&
               "First name must not be empty"
             }
           />
@@ -120,16 +110,13 @@ class ClassForm extends Component {
             type="text"
             name="lastName"
             margin="normal"
-            value={this.state.enteredLastName}
-            onChange={this.lastNameChangeHandler}
-            onBlur={this.lastNameBlurHandler}
-            error={
-              this.state.lastNameIsTouched &&
-              isEmpty(this.state.enteredLastName)
-            }
+            value={this.state.lastName}
+            onChange={this.inputValueChangeHandler}
+            onBlur={this.inputValueBlurHandler("lastNameIsTouched")}
+            error={this.state.lastNameIsTouched && isEmpty(this.state.lastName)}
             helperText={
               this.state.lastNameIsTouched &&
-              isEmpty(this.state.enteredLastName) &&
+              isEmpty(this.state.lastName) &&
               "Last name must not be empty"
             }
           />

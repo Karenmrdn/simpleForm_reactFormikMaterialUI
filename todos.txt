@@ -7,3 +7,7 @@
 Use any open api, fetch data from api and set it in context,
 use this data from some component,
 map through this list and show result as jsx
+
+Создать классовый компонент, в котором будет пара инпутов с валидацией. 
+Также добавить таймер, который будет засекать, сколько времени пользователь 
+провел на этом компоненте. Удалять таймер при демонтировании компонента.

@@ -27,35 +27,33 @@ export default function ButtonAppBar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Test app
-          </Typography>
-          <NavLink
-            to="/users"
-            className={classes.link}
-            activeClassName={classes.active}
-          >
-            USERS
-          </NavLink>
-          <NavLink
-            to="/main-form"
-            className={classes.link}
-            activeClassName={classes.active}
-          >
-            FORM
-          </NavLink>
-          <NavLink
-            to="/class-form"
-            className={classes.link}
-            activeClassName={classes.active}
-          >
-            CLASSFORM
-          </NavLink>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" className={classes.title}>
+          Test app
+        </Typography>
+        <NavLink
+          to="/users"
+          className={classes.link}
+          activeClassName={classes.active}
+        >
+          USERS
+        </NavLink>
+        <NavLink
+          to="/main-form"
+          className={classes.link}
+          activeClassName={classes.active}
+        >
+          FORM
+        </NavLink>
+        <NavLink
+          to="/class-form"
+          className={classes.link}
+          activeClassName={classes.active}
+        >
+          CLASSFORM
+        </NavLink>
+      </Toolbar>
+    </AppBar>
   );
 }
