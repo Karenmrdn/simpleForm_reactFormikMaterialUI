@@ -5,12 +5,14 @@ import { ProvideUsers } from "./hooks/useUsers";
 import { Redirect, Route, Switch } from "react-router-dom";
 import NotFound from "./screens/NotFound/NotFound";
 import ClassForm from "./screens/ClassForm/ClassForm";
+import Todos from "./screens/Todo/Todos";
 
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/" exact component={() => <Redirect to="/class-form" />} />
+      <Route path="/" exact component={() => <Redirect to="/todo" />} />
       <Route path="/main-form" component={() => <MainForm />} />
+      <Route path="/todo" component={() => <Todos />} />
       <Route
         path="/users"
         component={() => (

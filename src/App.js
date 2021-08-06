@@ -1,3 +1,4 @@
+import { Container } from "@material-ui/core";
 import React from "react";
 import Header from "./components/Header";
 import Routes from "./Routes";
@@ -6,7 +7,9 @@ function App() {
   return (
     <>
       <Header />
-      <Routes />
+      <Container maxWidth="lg">
+        <Routes />
+      </Container>
     </>
   );
 }

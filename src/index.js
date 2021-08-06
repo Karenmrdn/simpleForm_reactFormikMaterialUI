@@ -6,16 +6,17 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from "./config/theme";
-import { Container } from "@material-ui/core";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Container maxWidth="md">
-        <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
           <App />
-        </ThemeProvider>
-      </Container>
+        </Provider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

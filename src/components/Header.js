@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { NavLink } from "react-router-dom";
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,32 +29,45 @@ export default function ButtonAppBar() {
 
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Test app
-        </Typography>
-        <NavLink
-          to="/users"
-          className={classes.link}
-          activeClassName={classes.active}
-        >
-          USERS
-        </NavLink>
-        <NavLink
-          to="/main-form"
-          className={classes.link}
-          activeClassName={classes.active}
-        >
-          FORM
-        </NavLink>
-        <NavLink
-          to="/class-form"
-          className={classes.link}
-          activeClassName={classes.active}
-        >
-          CLASSFORM
-        </NavLink>
-      </Toolbar>
+      <Container maxWidth="lg">
+        <Toolbar>
+          <Typography
+            variant="h5"
+            className={classes.title}
+            style={{ fontWeight: 600 }}
+          >
+            Test app
+          </Typography>
+          <NavLink
+            to="/users"
+            className={classes.link}
+            activeClassName={classes.active}
+          >
+            USERS
+          </NavLink>
+          <NavLink
+            to="/main-form"
+            className={classes.link}
+            activeClassName={classes.active}
+          >
+            FORM
+          </NavLink>
+          <NavLink
+            to="/class-form"
+            className={classes.link}
+            activeClassName={classes.active}
+          >
+            CLASSFORM
+          </NavLink>
+          <NavLink
+            to="/todo"
+            className={classes.link}
+            activeClassName={classes.active}
+          >
+            TODO
+          </NavLink>
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 }
