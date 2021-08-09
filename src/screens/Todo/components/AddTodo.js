@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useDispatch } from "react-redux";
-import { todoActions } from "../../../store/todo-slice";
+import { todoActions } from "../../../store/slices/todo-slice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +24,9 @@ const AddTodo = (props) => {
     setInputValue(event.target.value);
   };
 
-  const addTodoHandler = (event) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     if (!inputValue.trim()) {
       return;
     }
@@ -40,7 +42,7 @@ const AddTodo = (props) => {
   };
 
   return (
-    <div className={classes.root}>
+    <form onSubmit={handleSubmit} className={classes.root}>
       <TextField
         variant="outlined"
         label="Task text"
@@ -48,10 +50,10 @@ const AddTodo = (props) => {
         value={inputValue}
         onChange={handleInputChange}
       />
-      <Button onClick={addTodoHandler} variant="contained" color="secondary">
+      <Button type="submit" variant="contained" color="secondary">
         ADD
       </Button>
-    </div>
+    </form>
   );
 };
 

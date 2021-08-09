@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from "./config/theme";
-import StoreProvider from "./store/storeProvider";
+import StoreProvider from "./store/StoreProvider";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todoReducer from "./todo-slice";
+import todoReducer from "./slices/todo-slice";
 import {
   persistStore,
   persistReducer,
@@ -13,6 +13,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import catsReducer from "./slices/cats-slice";
 
 const persistConfig = {
   key: "root",
@@ -20,10 +21,10 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, todoReducer);
+const persistedTodoReducer = persistReducer(persistConfig, todoReducer);
 
 const store = configureStore({
-  reducer: { todo: persistedReducer },
+  reducer: { todo: persistedTodoReducer, cats: catsReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

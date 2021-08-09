@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Checkbox, FormControlLabel } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { todoActions } from "../../../store/todo-slice";
+import { todoActions } from "../../../store/slices/todo-slice";
 
 const Todo = (props) => {
   const dispatch = useDispatch();

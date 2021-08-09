@@ -8,7 +8,7 @@ import mainFormValidationScheme from "../validation/mainFormValidationScheme";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    margin: theme.spacing(6),
+    margin: theme.spacing(3),
   },
 }));
 

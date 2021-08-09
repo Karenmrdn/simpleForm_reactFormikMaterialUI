@@ -66,6 +66,13 @@ export default function ButtonAppBar() {
           >
             TODO
           </NavLink>
+          <NavLink
+            to="/cats"
+            className={classes.link}
+            activeClassName={classes.active}
+          >
+            CATS
+          </NavLink>
         </Toolbar>
       </Container>
     </AppBar>

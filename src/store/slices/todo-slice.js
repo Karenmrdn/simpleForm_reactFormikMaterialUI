@@ -28,6 +28,12 @@ const todoSlice = createSlice({
     clearTodos(state, action) {
       state.todos = [];
     },
+    markAll(state, action) {
+      state.todos =
+        action.payload === "completed"
+          ? state.todos.map((todo) => ({ ...todo, completed: true }))
+          : state.todos.map((todo) => ({ ...todo, completed: false }));
+    },
   },
 });
 

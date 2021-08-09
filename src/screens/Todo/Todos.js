@@ -5,14 +5,19 @@ import {
   Card,
   Link,
   CardActions,
+  Button,
+  Container,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useSelector, useDispatch } from "react-redux";
 import AddTodo from "./components/AddTodo";
 import Todo from "./components/Todo";
-import { todoActions } from "../../store/todo-slice";
+import { todoActions } from "../../store/slices/todo-slice";
 
 const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    margin: theme.spacing(3),
+  },
   control: {
     "& > *": {
       margin: theme.spacing(1),
@@ -23,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     minWidth: 275,
     maxWidth: 400,
+    paddingBottom: 10,
   },
 }));
 
@@ -44,10 +50,16 @@ const Todos = () => {
     dispatch(todoActions.clearTodos());
   };
 
+  const markAllHandler = (status) => {
+    dispatch(todoActions.markAll(status));
+  };
+
   return (
-    <>
+    <div className={classes.wrapper}>
       <div className={classes.control}>
-        <Typography variant="h3">TO-DO LIST</Typography>
+        <Typography variant="h3" color="primary">
+          To-Do list
+        </Typography>
         <AddTodo />
       </div>
       <Card className={classes.card} variant="outlined">
@@ -55,14 +67,32 @@ const Todos = () => {
           {todoList.length !== 0 ? todoList : "You have no tasks to do!"}
         </CardContent>
         {todoList.length !== 0 && (
-          <CardActions>
-            <Link component="button" variant="h6" onClick={handleClear}>
-              Clear all tasks
-            </Link>
-          </CardActions>
+          <>
+            <CardActions>
+              <Button
+                onClick={() => markAllHandler("completed")}
+                color="secondary"
+                variant="outlined"
+              >
+                Mark everything as completed
+              </Button>
+              <Button
+                onClick={() => markAllHandler()}
+                color="secondary"
+                variant="outlined"
+              >
+                Mark everything as uncompleted
+              </Button>
+            </CardActions>
+            <Container>
+              <Link component="button" variant="h6" onClick={handleClear}>
+                Delete all tasks
+              </Link>
+            </Container>
+          </>
         )}
       </Card>
-    </>
+    </div>
   );
 };
 

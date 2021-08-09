@@ -5,7 +5,7 @@ import SaveIcon from "@material-ui/icons/Save";
 
 const styles = (theme) => ({
   wrapper: {
-    margin: theme.spacing(6),
+    margin: theme.spacing(3),
   },
 });
 
