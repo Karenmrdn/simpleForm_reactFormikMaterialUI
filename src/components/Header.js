@@ -29,14 +29,14 @@ export default function ButtonAppBar() {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Toolbar>
           <Typography
             variant="h5"
             className={classes.title}
             style={{ fontWeight: 600 }}
           >
-            Test app
+            TEST APP
           </Typography>
           <NavLink
             to="/users"

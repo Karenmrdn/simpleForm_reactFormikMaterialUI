@@ -1,13 +1,13 @@
-import { purple } from "@material-ui/core/colors";
+import { lightBlue } from "@material-ui/core/colors";
 
-const Loader = ({ style, className }) => {
+const Loader = ({ style, className, color = lightBlue[800] }) => {
   return (
     <svg
       width="100"
       height="100"
       viewBox="0 0 44 44"
       xmlns="http://www.w3.org/2000/svg"
-      stroke={purple[500]}
+      stroke={color}
       style={style}
       className={className}
     >

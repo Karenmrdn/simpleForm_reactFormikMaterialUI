@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Routes />
       </Container>
     </>
