@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     "& > *": {
       marginBottom: theme.spacing(1),
-      // width: "25ch",
     },
   },
   card: {
@@ -37,10 +36,6 @@ const Cats = () => {
     fetchData();
   }, [fetchData]);
 
-  const regeneratePhotoHandler = () => {
-    fetchData();
-  };
-
   return (
     <Grid
       className={classes.wrapper}
@@ -53,7 +48,7 @@ const Cats = () => {
         Cute cats
       </Typography>
       <Button
-        onClick={regeneratePhotoHandler}
+        onClick={fetchData}
         startIcon={<Replay />}
         variant="contained"
         color="secondary"

@@ -34,6 +34,12 @@ const todoSlice = createSlice({
           ? state.todos.map((todo) => ({ ...todo, completed: true }))
           : state.todos.map((todo) => ({ ...todo, completed: false }));
     },
+    changeTodoText(state, action) {
+      const foundTodo = state.todos.find(
+        (todo) => todo.id === action.payload.id
+      );
+      foundTodo.text = action.payload.text;
+    },
   },
 });
 

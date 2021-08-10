@@ -50,7 +50,7 @@ const Todos = () => {
     dispatch(todoActions.clearTodos());
   };
 
-  const markAllHandler = (status) => {
+  const markAllTasksHandler = (status) => {
     dispatch(todoActions.markAll(status));
   };
 
@@ -70,18 +70,18 @@ const Todos = () => {
           <>
             <CardActions>
               <Button
-                onClick={() => markAllHandler("completed")}
+                onClick={() => markAllTasksHandler("completed")}
                 color="secondary"
                 variant="outlined"
               >
-                Mark everything as completed
+                Mark all tasks as completed
               </Button>
               <Button
-                onClick={() => markAllHandler()}
+                onClick={() => markAllTasksHandler()}
                 color="secondary"
                 variant="outlined"
               >
-                Mark everything as uncompleted
+                Mark all tasks as uncompleted
               </Button>
             </CardActions>
             <Container>
