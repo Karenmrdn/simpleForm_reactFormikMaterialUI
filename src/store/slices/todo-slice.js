@@ -13,7 +13,8 @@ const todoSlice = createSlice({
   reducers: {
     addTodo(state, action) {
       const newTodo = action.payload;
-      state.todos.push(newTodo);
+      state.todos = [newTodo, ...state.todos];
+      state.todos.sort((a, b) => a.completed - b.completed);
     },
     removeTodo(state, action) {
       const idToDelete = action.payload;
@@ -24,6 +25,8 @@ const todoSlice = createSlice({
       const foundTodo = state.todos.find((todo) => todo.id === id);
 
       foundTodo.completed = !foundTodo.completed;
+
+      state.todos.sort((a, b) => a.completed - b.completed);
     },
     clearTodos(state, action) {
       state.todos = [];
@@ -39,6 +42,23 @@ const todoSlice = createSlice({
         (todo) => todo.id === action.payload.id
       );
       foundTodo.text = action.payload.text;
+    },
+    changeTodoOrder(state, action) {
+      const dragIndex = action.payload.dragIndex;
+      const hoverIndex = action.payload.hoverIndex;
+
+      const hoveredTask = state.todos[hoverIndex];
+      if (hoveredTask.completed) {
+        return;
+      }
+
+      const draggedTask = state.todos[dragIndex];
+      if (draggedTask.completed) {
+        return;
+      }
+
+      state.todos.splice(dragIndex, 1);
+      state.todos.splice(hoverIndex, 0, draggedTask);
     },
   },
 });

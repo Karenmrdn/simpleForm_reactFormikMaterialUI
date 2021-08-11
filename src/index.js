@@ -7,13 +7,17 @@ import { BrowserRouter } from "react-router-dom";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from "./config/theme";
 import StoreProvider from "./store/StoreProvider";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <StoreProvider>
-          <App />
+          <DndProvider backend={HTML5Backend}>
+            <App />
+          </DndProvider>
         </StoreProvider>
       </ThemeProvider>
     </BrowserRouter>

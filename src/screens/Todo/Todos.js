@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   CardContent,
   Typography,
@@ -37,15 +37,6 @@ const Todos = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todo.todos);
 
-  const todoList = todos.map((todo) => (
-    <Todo
-      key={todo.id}
-      id={todo.id}
-      text={todo.text}
-      completed={todo.completed}
-    />
-  ));
-
   const handleClear = () => {
     dispatch(todoActions.clearTodos());
   };
@@ -53,6 +44,25 @@ const Todos = () => {
   const markAllTasksHandler = (status) => {
     dispatch(todoActions.markAll(status));
   };
+
+  const moveTodo = useCallback(
+    (dragIndex, hoverIndex) => {
+      dispatch(todoActions.changeTodoOrder({ dragIndex, hoverIndex }));
+    },
+    [dispatch]
+  ); // DnD
+
+  const todoList = todos.map((todo, index) => (
+    <Todo
+      key={todo.id}
+      id={todo.id}
+      text={todo.text}
+      completed={todo.completed}
+      index={index} // DnD
+      moveTodo={moveTodo} // DnD
+      todos={todos}
+    />
+  ));
 
   return (
     <div className={classes.wrapper}>
@@ -76,6 +86,7 @@ const Todos = () => {
               >
                 Mark all tasks as completed
               </Button>
+
               <Button
                 onClick={() => markAllTasksHandler()}
                 color="secondary"
