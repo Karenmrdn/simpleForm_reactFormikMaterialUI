@@ -36,7 +36,7 @@ const Todos = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todo.todos);
-
+  
   const handleClear = () => {
     dispatch(todoActions.clearTodos());
   };
@@ -60,7 +60,6 @@ const Todos = () => {
       completed={todo.completed}
       index={index} // DnD
       moveTodo={moveTodo} // DnD
-      todos={todos}
     />
   ));
 

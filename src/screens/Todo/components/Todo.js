@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   Box,
   Button,
@@ -79,12 +79,7 @@ const Todo = (props) => {
   }); // DnD
 
   const opacity = isDragging ? 0 : 1; // DnD
-  // drag(drop(ref)); // DnD
-
-  const { todos } = props;
-  useEffect(() => {
-    drag(drop(ref)); // DnD
-  }, [todos, drag, drop]);
+  drag(drop(ref)); // DnD
 
   if (props.completed) {
     styles.push("completed");
@@ -115,13 +110,12 @@ const Todo = (props) => {
   };
 
   return (
-    <div>
+    <div ref={ref}>
       {!isEdit ? (
         <Box
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          ref={ref}
           style={{ opacity }}
           data-handler-id={handlerId}
         >
@@ -147,17 +141,15 @@ const Todo = (props) => {
           </div>
         </Box>
       ) : (
-        // <form onSubmit={handleTaskSave}>
-        <>
+        <form onSubmit={handleTaskSave}>
           <TextField
             value={props.text}
             onChange={handleTaskTextChange}
           ></TextField>
-          <Button onClick={handleTaskSave} type="submit" color="primary">
+          <Button type="submit" color="primary">
             Save
           </Button>
-        </>
-        // </form>
+        </form>
       )}
     </div>
   );
