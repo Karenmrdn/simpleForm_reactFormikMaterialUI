@@ -1,10 +1,10 @@
 import React from "react";
-import JobSelector from "../screens/MainForm/JobSelector";
+import JobSelector from "./components/JobSelector";
 import SaveIcon from "@material-ui/icons/Save";
 import { Typography, Button, TextField, Grid } from "@material-ui/core";
 import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
-import mainFormValidationScheme from "../validation/mainFormValidationScheme";
+import mainFormValidationScheme from "../../validation/mainFormValidationScheme";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -115,7 +115,7 @@ const MainForm = () => {
     <form onSubmit={formik.handleSubmit} className={classes.wrapper}>
       <Grid container direction="column" style={{ maxWidth: "60vh" }}>
         <Typography variant="h3" color="primary">
-          Simple form
+          Formik form
         </Typography>
 
         <TextField

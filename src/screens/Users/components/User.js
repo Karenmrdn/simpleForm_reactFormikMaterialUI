@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
   },
   btn: {
-    marginBottom: 10,
+    margin: theme.spacing(1),
+    marginTop: 0,
   },
   title: {
     fontSize: 14,

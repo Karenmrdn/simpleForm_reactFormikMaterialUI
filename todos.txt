@@ -19,3 +19,5 @@ map through this list and show result as jsx
 4.+ Все сделанные туду отправляются в самый низ списка
 5.+ Добавить редактирование каждому туду
 6. Добавить драг-н-дроп (перетаскивать можно только несделанные тудушки)
+
+Add some animations, authentication form and deploy app on firebase.

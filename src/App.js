@@ -1,12 +1,12 @@
 import { Container } from "@material-ui/core";
 import React from "react";
-import Header from "./components/Header";
+import Navigation from "./components/Navigation";
 import Routes from "./Routes";
 
 function App() {
   return (
     <>
-      <Header />
+      <Navigation />
       <Container maxWidth="md">
         <Routes />
       </Container>

@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   control: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "25ch",
     },
   },
   card: {
@@ -36,7 +35,7 @@ const Todos = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todo.todos);
-  
+
   const handleClear = () => {
     dispatch(todoActions.clearTodos());
   };

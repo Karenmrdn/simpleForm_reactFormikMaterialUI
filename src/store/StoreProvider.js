@@ -14,6 +14,7 @@ import storage from "redux-persist/lib/storage";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import catsReducer from "./slices/cats-slice";
+import authReducer from "./slices/auth-slice";
 
 const persistConfig = {
   key: "root",
@@ -24,7 +25,7 @@ const persistConfig = {
 const persistedTodoReducer = persistReducer(persistConfig, todoReducer);
 
 const store = configureStore({
-  reducer: { todo: persistedTodoReducer, cats: catsReducer },
+  reducer: { todo: persistedTodoReducer, cats: catsReducer, auth: authReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

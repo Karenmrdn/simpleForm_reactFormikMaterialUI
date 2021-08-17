@@ -12,8 +12,9 @@ const styles = (theme) => ({
 const isEmpty = (value) => value.trim().length === 0;
 
 class ClassForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       firstName: "",
       lastName: "",
