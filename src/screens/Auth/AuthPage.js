@@ -10,9 +10,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import axios from "axios";
-import Loader from "../assets/svg/Loader";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../store/slices/auth-slice";
+import Loader from "../../assets/svg/Loader";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/slices/auth-slice";
+import { useHistory } from "react-router";
+import { authorize } from "../../store/slices/auth-actions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -28,10 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Auth = () => {
+const AuthPage = () => {
+  const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
   const [isLogin, setIsLogin] = useState(true);
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -54,7 +56,14 @@ const Auth = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    let url = "";
+    setIsLoading(true);
+
+    await dispatch(authorize(enteredEmail, enteredPassword, isLogin));
+    history.replace("/");
+
+    setIsLoading(false);
+
+    /* let url = "";
     if (isLogin) {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyASroRhL4HAS8iImrESE7vQwXtUJDDHnxk";
@@ -62,8 +71,6 @@ const Auth = () => {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyASroRhL4HAS8iImrESE7vQwXtUJDDHnxk";
     }
-
-    setIsLoading(true);
 
     try {
       const response = await axios.post(url, {
@@ -73,13 +80,18 @@ const Auth = () => {
       });
       console.log(response.data);
 
-      dispatch(authActions.login(response.data.idToken));
+      dispatch(
+        authActions.login({
+          token: response.data.idToken,
+          expiresIn: response.data.expiresIn,
+        })
+      );
+      history.replace("/");
+
       setError("");
     } catch (err) {
       setError(err.response.data.error.message);
-    }
-
-    setIsLoading(false);
+    } */
   };
 
   return (
@@ -135,4 +147,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthPage;
