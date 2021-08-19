@@ -3,12 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { NavLink, Link } from "react-router-dom";
-import { Button, Container } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
+import { Button, Container, Link } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/slices/auth-slice";
 import { useHistory } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,47 +52,60 @@ export default function ButtonAppBar() {
             className={classes.title}
             style={{ fontWeight: 600 }}
           >
-            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <RouterLink
+              to="/"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               TEST APP
-            </Link>
+            </RouterLink>
           </Typography>
           {isLoggedIn && (
             <>
-              <NavLink
+              <Link
+                component={NavLink}
                 to="/users"
+                color="inherit"
                 className={classes.link}
                 activeClassName={classes.active}
               >
                 USERS
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
+                component={NavLink}
                 to="/main-form"
+                color="inherit"
                 className={classes.link}
                 activeClassName={classes.active}
               >
                 FORM
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
+                component={NavLink}
                 to="/class-form"
+                color="inherit"
                 className={classes.link}
                 activeClassName={classes.active}
               >
                 CLASSFORM
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
+                component={NavLink}
                 to="/todo"
+                color="inherit"
                 className={classes.link}
                 activeClassName={classes.active}
               >
                 TODO
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
+                component={NavLink}
                 to="/cats"
+                color="inherit"
                 className={classes.link}
                 activeClassName={classes.active}
               >
                 CATS
-              </NavLink>
+              </Link>
               <Button
                 onClick={handleLogout}
                 variant="contained"
@@ -103,13 +117,15 @@ export default function ButtonAppBar() {
             </>
           )}
           {!isLoggedIn && (
-            <NavLink
+            <Link
+              component={NavLink}
               to="/auth"
+              color="inherit"
               className={classes.link}
               activeClassName={classes.active}
             >
-              <Typography>AUTH</Typography>
-            </NavLink>
+              AUTH
+            </Link>
           )}
         </Toolbar>
       </Container>

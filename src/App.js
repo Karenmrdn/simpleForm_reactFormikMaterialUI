@@ -1,7 +1,7 @@
 import { Container } from "@material-ui/core";
 import React from "react";
 import Navigation from "./components/Navigation";
-import Routes from "./Routes";
+import Routes from "./routes/Routes";
 
 function App() {
   return (

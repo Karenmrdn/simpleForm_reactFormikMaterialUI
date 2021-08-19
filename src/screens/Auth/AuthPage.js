@@ -9,12 +9,13 @@ import {
   Link,
   Typography,
 } from "@material-ui/core";
-import axios from "axios";
 import Loader from "../../assets/svg/Loader";
 import { useDispatch } from "react-redux";
-import { authActions } from "../../store/slices/auth-slice";
-import { useHistory } from "react-router";
+import { Redirect } from "react-router";
 import { authorize } from "../../store/slices/auth-actions";
+import { useSelector } from "react-redux";
+import { errorActions } from "../../store/slices/error-slice";
+import ModalWindow from "../../components/ModalWindow";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -31,17 +32,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AuthPage = () => {
-  const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(true);
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const error = useSelector((state) => state.error.error);
+  const isGettingAuthData = useSelector(
+    (state) => state.auth.isGettingAuthData
+  );
+
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
+  }
 
   const handleAuthModeChange = () => {
-    setError(null);
+    dispatch(errorActions.setError(""));
     setIsLogin((prevValue) => !prevValue);
   };
 
@@ -53,45 +60,10 @@ const AuthPage = () => {
     setEnteredPassword(event.target.value);
   };
 
-  const handleLogin = async (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
 
-    setIsLoading(true);
-
-    await dispatch(authorize(enteredEmail, enteredPassword, isLogin));
-    history.replace("/");
-
-    setIsLoading(false);
-
-    /* let url = "";
-    if (isLogin) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyASroRhL4HAS8iImrESE7vQwXtUJDDHnxk";
-    } else {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyASroRhL4HAS8iImrESE7vQwXtUJDDHnxk";
-    }
-
-    try {
-      const response = await axios.post(url, {
-        email: enteredEmail,
-        password: enteredPassword,
-        returnSecureToken: true,
-      });
-      console.log(response.data);
-
-      dispatch(
-        authActions.login({
-          token: response.data.idToken,
-          expiresIn: response.data.expiresIn,
-        })
-      );
-      history.replace("/");
-
-      setError("");
-    } catch (err) {
-      setError(err.response.data.error.message);
-    } */
+    dispatch(authorize(enteredEmail, enteredPassword, isLogin));
   };
 
   return (
@@ -114,9 +86,9 @@ const AuthPage = () => {
             label="Password"
             variant="outlined"
           />
-          {error && <Typography color="error">{error}</Typography>}
+          {error && <ModalWindow color="error" text={error} />}
         </CardContent>
-        {!isLoading && (
+        {!isGettingAuthData && (
           <Box
             display="flex"
             justifyContent="space-between"
@@ -137,7 +109,7 @@ const AuthPage = () => {
             </Button>
           </Box>
         )}
-        {isLoading && (
+        {isGettingAuthData && (
           <div style={{ textAlign: "center" }}>
             <Loader />
           </div>

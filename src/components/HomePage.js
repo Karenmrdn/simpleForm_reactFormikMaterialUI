@@ -1,8 +1,6 @@
 import React from "react";
 import { Typography, makeStyles } from "@material-ui/core";
 import catTypingGif from "../assets/gif/catTyping.gif";
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -13,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <div className={classes.wrapper}>

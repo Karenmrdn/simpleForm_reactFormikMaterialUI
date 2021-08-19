@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: 400,
   },
+  btn: {
+    display: "block",
+  },
 }));
 
 const AddTodo = (props) => {
@@ -50,7 +53,12 @@ const AddTodo = (props) => {
         value={inputValue}
         onChange={handleInputChange}
       />
-      <Button type="submit" variant="contained" color="secondary">
+      <Button
+        type="submit"
+        variant="contained"
+        color="secondary"
+        className={classes.btn}
+      >
         ADD
       </Button>
     </form>

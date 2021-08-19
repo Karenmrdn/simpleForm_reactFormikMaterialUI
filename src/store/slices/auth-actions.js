@@ -1,8 +1,11 @@
 import axios from "axios";
 import { authActions } from "./auth-slice";
+import { errorActions } from "./error-slice";
+
+let errorMessage = "";
 
 export const authorize = (email, password, isLogin) => async (dispatch) => {
-  let error = "";
+  dispatch(authActions.setIsGettingAuthData(true));
 
   let url = "";
   if (isLogin) {
@@ -27,12 +30,13 @@ export const authorize = (email, password, isLogin) => async (dispatch) => {
         expiresIn: response.data.expiresIn,
       })
     );
-    // history.replace("/");
 
-    error = "";
+    errorMessage = "";
+    dispatch(errorActions.setError(errorMessage));
   } catch (err) {
-    error = err.response.data.error.message;
+    errorMessage = err.response.data.error.message;
+    dispatch(errorActions.setError(errorMessage));
   }
 
-  return error;
+  dispatch(authActions.setIsGettingAuthData(false));
 };
