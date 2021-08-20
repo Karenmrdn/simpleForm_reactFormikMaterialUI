@@ -15,7 +15,8 @@ import { Redirect } from "react-router";
 import { authorize } from "../../store/slices/auth-actions";
 import { useSelector } from "react-redux";
 import { errorActions } from "../../store/slices/error-slice";
-import ModalWindow from "../../components/ModalWindow";
+import { authActions } from "../../store/slices/auth-slice";
+import { calculateRemainingTime } from "../../utils/calculateRemainingTime";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -38,7 +39,6 @@ const AuthPage = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const error = useSelector((state) => state.error.error);
   const isGettingAuthData = useSelector(
     (state) => state.auth.isGettingAuthData
   );
@@ -60,10 +60,20 @@ const AuthPage = () => {
     setEnteredPassword(event.target.value);
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
 
-    dispatch(authorize(enteredEmail, enteredPassword, isLogin));
+    await dispatch(authorize(enteredEmail, enteredPassword, isLogin));
+
+    const expirationTime = localStorage.getItem("expirationTime");
+    const remainingTime = calculateRemainingTime(expirationTime);
+
+    const logoutTimerId = setTimeout(
+      () => dispatch(authActions.logout()),
+      remainingTime
+    );
+
+    dispatch(authActions.setLogoutTimerId(logoutTimerId));
   };
 
   return (
@@ -86,7 +96,6 @@ const AuthPage = () => {
             label="Password"
             variant="outlined"
           />
-          {error && <ModalWindow color="error" text={error} />}
         </CardContent>
         {!isGettingAuthData && (
           <Box

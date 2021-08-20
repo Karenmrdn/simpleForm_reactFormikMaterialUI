@@ -37,9 +37,13 @@ export default function ButtonAppBar() {
   const history = useHistory();
   const classes = useStyles();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const logoutTimerId = useSelector((state) => state.auth.logoutTimerId);
 
   const handleLogout = () => {
     dispatch(authActions.logout());
+
+    clearTimeout(logoutTimerId);
+
     history.replace("/");
   };
 

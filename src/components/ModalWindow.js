@@ -40,7 +40,7 @@ const ModalWindow = ({
   return (
     <div>
       <button type="button" onClick={handleOpen}>
-        react-transition-group
+        Open error modal
       </button>
       <Modal
         aria-labelledby="transition-modal-title"

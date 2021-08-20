@@ -78,19 +78,18 @@ const Todos = () => {
           <>
             <CardActions>
               <Button
-                onClick={() => markAllTasksHandler("completed")}
-                color="secondary"
-                variant="outlined"
-              >
-                Mark all tasks as completed
-              </Button>
-
-              <Button
                 onClick={() => markAllTasksHandler()}
                 color="secondary"
                 variant="outlined"
               >
                 Mark all tasks as uncompleted
+              </Button>
+              <Button
+                onClick={() => markAllTasksHandler("completed")}
+                color="secondary"
+                variant="outlined"
+              >
+                Mark all tasks as completed
               </Button>
             </CardActions>
             <Container>

@@ -22,20 +22,30 @@ export const authorize = (email, password, isLogin) => async (dispatch) => {
       password,
       returnSecureToken: true,
     });
-    console.log(response.data);
+
+    const expirationTimeInMilliseconds =
+      Date.now() + +response.data.expiresIn * 1000;
 
     dispatch(
       authActions.login({
         token: response.data.idToken,
-        expiresIn: response.data.expiresIn,
+        expirationTime: expirationTimeInMilliseconds,
       })
     );
 
+    // Nulling error on successful login
     errorMessage = "";
     dispatch(errorActions.setError(errorMessage));
   } catch (err) {
-    errorMessage = err.response.data.error.message;
-    dispatch(errorActions.setError(errorMessage));
+    if (err.response) {
+      errorMessage = err.response.data.error.message;
+      dispatch(errorActions.setError(errorMessage));
+    } else if (err.request) {
+      console.log(`Request error - ${err.request}`);
+    } else {
+      console.log(err.message);
+    }
+    console.log(err.config);
   }
 
   dispatch(authActions.setIsGettingAuthData(false));
