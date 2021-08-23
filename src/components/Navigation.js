@@ -55,13 +55,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+const Navigation = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const logoutTimerId = useSelector((state) => state.auth.logoutTimerId);
-  const [checked, setChecked] = useState(false);
 
   const [anchor, setAnchor] = useState(null);
   const isFullscreen = useMediaQuery("(min-width:660px)");
@@ -80,10 +79,6 @@ export default function ButtonAppBar() {
     clearTimeout(logoutTimerId);
 
     history.replace("/");
-  };
-
-  const handleCheckedChange = () => {
-    setChecked((prev) => !prev);
   };
 
   return (
@@ -235,4 +230,6 @@ export default function ButtonAppBar() {
       </Container>
     </AppBar>
   );
-}
+};
+
+export default Navigation;

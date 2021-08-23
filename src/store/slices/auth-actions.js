@@ -23,13 +23,12 @@ export const authorize = (email, password, isLogin) => async (dispatch) => {
       returnSecureToken: true,
     });
 
-    const expirationTimeInMilliseconds =
-      Date.now() + +response.data.expiresIn * 1000;
+    // const expirationTimeInMilliseconds =
+    //   Date.now() + +response.data.expiresIn * 1000;
 
     dispatch(
       authActions.login({
         token: response.data.idToken,
-        expirationTime: expirationTimeInMilliseconds,
       })
     );
 

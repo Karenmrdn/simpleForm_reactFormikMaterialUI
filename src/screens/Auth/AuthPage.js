@@ -16,7 +16,7 @@ import { authorize } from "../../store/slices/auth-actions";
 import { useSelector } from "react-redux";
 import { errorActions } from "../../store/slices/error-slice";
 import { authActions } from "../../store/slices/auth-slice";
-import { calculateRemainingTime } from "../../utils/calculateRemainingTime";
+import { calculateRemainingTime } from "../../utils/tokenActions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -65,8 +65,8 @@ const AuthPage = () => {
 
     await dispatch(authorize(enteredEmail, enteredPassword, isLogin));
 
-    const expirationTime = localStorage.getItem("expirationTime");
-    const remainingTime = calculateRemainingTime(expirationTime);
+    const token = localStorage.getItem("token");
+    const remainingTime = calculateRemainingTime(token);
 
     const logoutTimerId = setTimeout(
       () => dispatch(authActions.logout()),

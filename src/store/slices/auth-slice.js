@@ -1,29 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { calculateRemainingTime } from "../../utils/calculateRemainingTime";
+import { calculateRemainingTime } from "../../utils/tokenActions";
 
-// const checkTokenValidity = () => {
-//   const storedToken = localStorage.getItem("token");
-//   const storedExpirationTime = localStorage.getItem("expirationTime");
-
-//   const remainingTime = calculateRemainingTime(storedExpirationTime);
-
-//   if (remainingTime < 3600) {
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("expirationTime");
-//     return null;
-//   }
-
-//   return {
-//     token: storedToken,
-//     duration: remainingTime,
-//   };
-// };
+const token = localStorage.getItem("token");
+const remainingTime = calculateRemainingTime(token);
+console.log(remainingTime);
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isLoggedIn:
-    localStorage.getItem("token") &&
-    calculateRemainingTime(+localStorage.getItem("expirationTime")) > 0,
+  isLoggedIn: remainingTime > 0,
   isGettingAuthData: false,
   logoutTimerId: null,
 };
@@ -37,14 +21,12 @@ const authSlice = createSlice({
       state.token = action.payload.token;
 
       localStorage.setItem("token", action.payload.token);
-      localStorage.setItem("expirationTime", action.payload.expirationTime);
     },
     logout(state, action) {
       state.isLoggedIn = false;
       state.token = null;
 
       localStorage.removeItem("token");
-      localStorage.removeItem("expirationTime");
     },
     setLogoutTimerId(state, action) {
       state.logoutTimerId = action.payload;
