@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, makeStyles } from "@material-ui/core";
 import catTypingGif from "../assets/gif/catTyping.gif";
+import Test from "./Test";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -14,6 +15,7 @@ const HomePage = () => {
 
   return (
     <div className={classes.wrapper}>
+      <Test />
       <Typography variant="h3" color="primary">
         Welcome to the test application!
       </Typography>

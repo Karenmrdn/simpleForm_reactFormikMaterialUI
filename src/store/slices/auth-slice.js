@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { calculateRemainingTime } from "../../utils/calculateRemainingTime";
+import { calculateRemainingTime } from "../../utils/calculateRemainingTime";
 
 // const checkTokenValidity = () => {
 //   const storedToken = localStorage.getItem("token");
@@ -19,14 +19,18 @@ import { createSlice } from "@reduxjs/toolkit";
 //   };
 // };
 
+const initialState = {
+  token: localStorage.getItem("token"),
+  isLoggedIn:
+    localStorage.getItem("token") &&
+    calculateRemainingTime(+localStorage.getItem("expirationTime")) > 0,
+  isGettingAuthData: false,
+  logoutTimerId: null,
+};
+
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    token: localStorage.getItem("token"),
-    isLoggedIn: !!localStorage.getItem("token"),
-    isGettingAuthData: false,
-    logoutTimerId: null,
-  },
+  initialState,
   reducers: {
     login(state, action) {
       state.isLoggedIn = true;
@@ -34,9 +38,6 @@ const authSlice = createSlice({
 
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("expirationTime", action.payload.expirationTime);
-
-      // setTimeout(() => authSlice.caseReducers.logout(state, action), 2000);
-      // console.log(authSlice.caseReducers);
     },
     logout(state, action) {
       state.isLoggedIn = false;
