@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@material-ui/core";
+import { TextField, Box, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useDispatch } from "react-redux";
 import { todoActions } from "../../../store/slices/todo-slice";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,11 +11,24 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(1),
     },
   },
+  inputBox: {
+    marginRight: theme.spacing(1),
+  },
   input: {
-    width: 400,
+    width: "100%",
   },
   btn: {
-    display: "block",
+    height: "100%",
+    padding: 0,
+    width: 36,
+    borderRadius: "50%",
+  },
+  iconBtn: {
+    backgroundColor: theme.palette.secondary.main,
+    color: "white",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
   },
 }));
 
@@ -46,21 +60,22 @@ const AddTodo = (props) => {
 
   return (
     <form onSubmit={handleSubmit} className={classes.root}>
-      <TextField
-        variant="outlined"
-        label="Task text"
-        className={classes.input}
-        value={inputValue}
-        onChange={handleInputChange}
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="secondary"
-        className={classes.btn}
-      >
-        ADD
-      </Button>
+      <Box display="flex" width={400} alignItems="center">
+        <Box flexGrow={1} className={classes.inputBox}>
+          <TextField
+            variant="outlined"
+            label="Task text"
+            className={classes.input}
+            value={inputValue}
+            onChange={handleInputChange}
+          />
+        </Box>
+        <Box>
+          <IconButton type="submit" className={classes.iconBtn}>
+            <AddIcon />
+          </IconButton>
+        </Box>
+      </Box>
     </form>
   );
 };
