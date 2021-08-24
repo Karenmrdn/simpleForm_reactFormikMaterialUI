@@ -7,6 +7,7 @@ import {
   CardActions,
   Button,
   Container,
+  Slide,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useSelector, useDispatch } from "react-redux";
@@ -52,14 +53,18 @@ const Todos = () => {
   ); // DnD
 
   const todoList = todos.map((todo, index) => (
-    <Todo
-      key={todo.id}
-      id={todo.id}
-      text={todo.text}
-      completed={todo.completed}
-      index={index} // DnD
-      moveTodo={moveTodo} // DnD
-    />
+    <Slide in={true} timeout={500} key={todo.id}>
+      <div>
+        <Todo
+          key={todo.id} // TO DELETE with Slide and div outside
+          id={todo.id}
+          text={todo.text}
+          completed={todo.completed}
+          index={index} // DnD
+          moveTodo={moveTodo} // DnD
+        />
+      </div>
+    </Slide>
   ));
 
   return (
