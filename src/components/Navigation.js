@@ -93,7 +93,7 @@ const Navigation = () => {
           {isLoggedIn && (
             <>
               {isFullscreen ? (
-                <Zoom in={isFullscreen}>
+                <Zoom in={isFullscreen} mountOnEnter unmountOnExit>
                   <div>
                     <Link
                       component={NavLink}
@@ -143,7 +143,7 @@ const Navigation = () => {
                   </div>
                 </Zoom>
               ) : (
-                <Grow in={!isFullscreen}>
+                <Grow in={!isFullscreen} mountOnEnter unmountOnExit>
                   <div>
                     <IconButton
                       color="inherit"

@@ -53,10 +53,15 @@ const Todos = () => {
   ); // DnD
 
   const todoList = todos.map((todo, index) => (
-    <Slide in={true} timeout={500} key={todo.id}>
+    <Slide
+      key={todo.id}
+      in={todo.fade}
+      timeout={500}
+      mountOnEnter
+      unmountOnExit
+    >
       <div>
         <Todo
-          key={todo.id} // TO DELETE with Slide and div outside
           id={todo.id}
           text={todo.text}
           completed={todo.completed}

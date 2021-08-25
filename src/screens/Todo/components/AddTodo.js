@@ -53,6 +53,7 @@ const AddTodo = (props) => {
         id: (Math.random() + Date.now()).toString(),
         text: inputValue,
         completed: false,
+        fade: true,
       })
     );
     setInputValue("");

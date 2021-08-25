@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialTodoState = {
   todos: [
-    { id: "t1", text: "Learn React", completed: false },
-    { id: "t2", text: "Learn JS", completed: false },
+    { id: "t1", text: "Learn React", completed: false, fade: true },
+    { id: "t2", text: "Learn JS", completed: false, fade: true },
   ],
 };
 
@@ -59,6 +59,10 @@ const todoSlice = createSlice({
 
       state.todos.splice(dragIndex, 1);
       state.todos.splice(hoverIndex, 0, draggedTask);
+    },
+    toggleFade(state, action) {
+      const foundTodo = state.todos.find((todo) => todo.id === action.payload);
+      foundTodo.fade = !foundTodo.fade;
     },
   },
 });

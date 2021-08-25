@@ -90,7 +90,9 @@ const Todo = (props) => {
   };
 
   const handleTaskDelete = (event) => {
-    dispatch(todoActions.removeTodo(props.id));
+    dispatch(todoActions.toggleFade(props.id));
+
+    setTimeout(() => dispatch(todoActions.removeTodo(props.id)), 500);
   };
 
   const handleTaskEdit = (event) => {
