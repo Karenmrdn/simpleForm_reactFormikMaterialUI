@@ -13,7 +13,7 @@ import {
   MenuItem,
   IconButton,
   Zoom,
-  Grow,
+  Slide,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -143,7 +143,12 @@ const Navigation = () => {
                   </div>
                 </Zoom>
               ) : (
-                <Grow in={!isFullscreen} mountOnEnter unmountOnExit>
+                <Slide
+                  direction="right"
+                  in={!isFullscreen}
+                  mountOnEnter
+                  unmountOnExit
+                >
                   <div>
                     <IconButton
                       color="inherit"
@@ -203,7 +208,7 @@ const Navigation = () => {
                       </MenuItem>
                     </Menu>
                   </div>
-                </Grow>
+                </Slide>
               )}
               <Button
                 onClick={handleLogout}

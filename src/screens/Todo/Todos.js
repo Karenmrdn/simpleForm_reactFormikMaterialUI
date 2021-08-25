@@ -55,6 +55,7 @@ const Todos = () => {
   const todoList = todos.map((todo, index) => (
     <Slide
       key={todo.id}
+      direction={todo.fade ? "down" : "left"}
       in={todo.fade}
       timeout={500}
       mountOnEnter

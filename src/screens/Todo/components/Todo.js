@@ -5,6 +5,7 @@ import {
   Checkbox,
   FormControlLabel,
   TextField,
+  Zoom,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { todoActions } from "../../../store/slices/todo-slice";
@@ -16,7 +17,8 @@ const Todo = (props) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const styles = [];
-  const ref = useRef(null); // DnD
+  const todoElementRef = useRef(null); // DnD
+  // const editTodoInputRef = useRef();
 
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.CARD,
@@ -26,7 +28,7 @@ const Todo = (props) => {
       };
     },
     hover(item, monitor) {
-      if (!ref.current) {
+      if (!todoElementRef.current) {
         return;
       }
       const dragIndex = item.index;
@@ -36,7 +38,7 @@ const Todo = (props) => {
         return;
       }
       // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverBoundingRect = todoElementRef.current?.getBoundingClientRect();
       // Get vertical middle
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -79,7 +81,7 @@ const Todo = (props) => {
   }); // DnD
 
   const opacity = isDragging ? 0 : 1; // DnD
-  drag(drop(ref)); // DnD
+  drag(drop(todoElementRef)); // DnD
 
   if (props.completed) {
     styles.push("completed");
@@ -112,7 +114,7 @@ const Todo = (props) => {
   };
 
   return (
-    <div ref={ref}>
+    <div ref={todoElementRef}>
       {!isEdit ? (
         <Box
           display="flex"
@@ -143,15 +145,21 @@ const Todo = (props) => {
           </div>
         </Box>
       ) : (
-        <form onSubmit={handleTaskSave}>
-          <TextField
-            value={props.text}
-            onChange={handleTaskTextChange}
-          ></TextField>
-          <Button type="submit" color="primary">
-            Save
-          </Button>
-        </form>
+        <Zoom in={true}>
+          <div style={{ display: "flex", alignItems: "center", height: 42 }}>
+            <form onSubmit={handleTaskSave}>
+              <TextField
+                autoFocus={true}
+                value={props.text}
+                onChange={handleTaskTextChange}
+                style={{ width: 240 }}
+              />
+              <Button type="submit" color="primary">
+                Save
+              </Button>
+            </form>
+          </div>
+        </Zoom>
       )}
     </div>
   );
