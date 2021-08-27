@@ -74,7 +74,8 @@ const Navigation = () => {
   };
 
   const handleLogout = () => {
-    dispatch(authActions.logout());
+    // dispatch(authActions.logout());
+    dispatch(authActions.signOut());
 
     clearTimeout(logoutTimerId);
 

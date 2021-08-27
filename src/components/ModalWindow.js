@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { Typography } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { errorActions } from "../store/slices/error-slice";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -18,35 +20,29 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(3, 4),
+    textAlign: "center",
   },
 }));
 
 const ModalWindow = ({
-  title = "You got an error!",
+  title = "Error occurred!",
   titleColor = "error",
   text,
 }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const dispatch = useDispatch();
 
   const handleClose = () => {
-    setOpen(false);
+    dispatch(errorActions.setError(""));
   };
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Open error modal
-      </button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={open}
+        open={true}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -54,7 +50,7 @@ const ModalWindow = ({
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={true}>
           <div className={classes.paper}>
             <Typography
               id="transition-modal-title"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Loader from "../../assets/svg/Loader";
+import Loader from "../../assets/loaders/Loader";
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import { Replay } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";

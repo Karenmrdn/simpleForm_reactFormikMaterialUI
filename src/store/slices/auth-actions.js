@@ -1,50 +1,53 @@
-import axios from "axios";
 import { authActions } from "./auth-slice";
 import { errorActions } from "./error-slice";
-
-let errorMessage = "";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export const authorize = (email, password, isLogin) => async (dispatch) => {
   dispatch(authActions.setIsGettingAuthData(true));
 
-  let url = "";
-  if (isLogin) {
-    url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyASroRhL4HAS8iImrESE7vQwXtUJDDHnxk";
-  } else {
-    url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyASroRhL4HAS8iImrESE7vQwXtUJDDHnxk";
+  try {
+    const userCredential = isLogin
+      ? await firebase.auth().signInWithEmailAndPassword(email, password)
+      : await firebase.auth().createUserWithEmailAndPassword(email, password);
+
+    const token = userCredential.user.Aa;
+    dispatch(authActions.signIn(token));
+  } catch (error) {
+    dispatch(errorActions.setError(error.message));
   }
 
+  dispatch(authActions.setIsGettingAuthData(false));
+};
+
+export const loginWithGoogle = () => async (dispatch) => {
+  dispatch(authActions.setIsGettingAuthData(true));
+
   try {
-    const response = await axios.post(url, {
-      email,
-      password,
-      returnSecureToken: true,
-    });
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const { user } = await firebase.auth().signInWithPopup(provider);
 
-    // const expirationTimeInMilliseconds =
-    //   Date.now() + +response.data.expiresIn * 1000;
+    const token = user.Aa;
+    dispatch(authActions.signIn(token));
+  } catch (error) {
+    dispatch(errorActions.setError(error.message));
+  }
 
-    dispatch(
-      authActions.login({
-        token: response.data.idToken,
-      })
-    );
+  dispatch(authActions.setIsGettingAuthData(false));
+};
 
-    // Nulling error on successful login
-    errorMessage = "";
-    dispatch(errorActions.setError(errorMessage));
-  } catch (err) {
-    if (err.response) {
-      errorMessage = err.response.data.error.message;
-      dispatch(errorActions.setError(errorMessage));
-    } else if (err.request) {
-      console.log(`Request error - ${err.request}`);
-    } else {
-      console.log(err.message);
-    }
-    console.log(err.config);
+export const loginWithFacebook = () => async (dispatch) => {
+  dispatch(authActions.setIsGettingAuthData(true));
+
+  try {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    const { user } = await firebase.auth().signInWithPopup(provider);
+
+    console.log(user);
+    const token = user.Aa;
+    // dispatch(authActions.signIn(token));
+  } catch (error) {
+    dispatch(errorActions.setError(error.message));
   }
 
   dispatch(authActions.setIsGettingAuthData(false));

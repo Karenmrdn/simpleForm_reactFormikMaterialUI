@@ -1,3 +1,6 @@
+Одна страница: форма с тайтлом, первое поле: селект с четырьмя вариантами.
+Инпуты должны быть контролируемые. Валидация + формик.
+И кнопка в конце.
 1.+ Удалить файл MainForm.module.css, заменить его хуком стилей из MaterialUI
 2.+ Убрать скрытый div и добавить helperText
 3.+ Использовать theme из MaterialUI
@@ -20,4 +23,9 @@ map through this list and show result as jsx
 5.+ Добавить редактирование каждому туду
 6. Добавить драг-н-дроп (перетаскивать можно только несделанные тудушки)
 
-Add some animations, authentication form and deploy app on firebase.
+1. Add animations to todo page
+2. Add authentication form with 3 ways of authentication:
+- with email and password
+- with google
+- with facebook
+3. Deploy app on firebase

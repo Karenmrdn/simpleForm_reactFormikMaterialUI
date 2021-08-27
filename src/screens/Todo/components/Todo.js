@@ -6,6 +6,7 @@ import {
   FormControlLabel,
   TextField,
   Zoom,
+  Grow,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { todoActions } from "../../../store/slices/todo-slice";
@@ -18,7 +19,6 @@ const Todo = (props) => {
   const [isEdit, setIsEdit] = useState(false);
   const styles = [];
   const todoElementRef = useRef(null); // DnD
-  // const editTodoInputRef = useRef();
 
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.CARD,
@@ -116,34 +116,36 @@ const Todo = (props) => {
   return (
     <div ref={todoElementRef}>
       {!isEdit ? (
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          style={{ opacity }}
-          data-handler-id={handlerId}
-        >
-          <FormControlLabel
-            className={styles.join(" ")}
-            control={
-              <Checkbox
-                checked={props.completed}
-                onChange={handleStatusChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label={props.text}
-          />
-          <div>
-            <Button onClick={handleTaskEdit} color="primary">
-              <Edit />
-            </Button>
-            <Button onClick={handleTaskDelete}>
-              <Clear color="error" />
-            </Button>
-          </div>
-        </Box>
+        <Grow in={true}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            style={{ opacity }}
+            data-handler-id={handlerId}
+          >
+            <FormControlLabel
+              className={styles.join(" ")}
+              control={
+                <Checkbox
+                  checked={props.completed}
+                  onChange={handleStatusChange}
+                  name="checkedB"
+                  color="primary"
+                />
+              }
+              label={props.text}
+            />
+            <div>
+              <Button onClick={handleTaskEdit} color="primary">
+                <Edit />
+              </Button>
+              <Button onClick={handleTaskDelete}>
+                <Clear color="error" />
+              </Button>
+            </div>
+          </Box>
+        </Grow>
       ) : (
         <Zoom in={true}>
           <div style={{ display: "flex", alignItems: "center", height: 42 }}>
