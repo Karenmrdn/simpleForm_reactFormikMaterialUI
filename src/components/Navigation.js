@@ -86,6 +86,74 @@ const Navigation = () => {
     <AppBar position="static">
       <Container maxWidth="lg">
         <Toolbar>
+          {isLoggedIn && !isFullscreen && (
+            <Slide
+              direction="left"
+              in={!isFullscreen}
+              mountOnEnter
+              unmountOnExit
+            >
+              <div>
+                <IconButton
+                  color="inherit"
+                  className={classes.menuButton}
+                  edge="start"
+                  aria-label="menu"
+                  onClick={handleMenuOpen}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchor}
+                  keepMounted
+                  open={Boolean(anchor)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem
+                    onClick={handleMenuClose}
+                    component={NavLink}
+                    activeClassName={classes.activeMenuItem}
+                    to="/users"
+                  >
+                    USERS
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleMenuClose}
+                    component={NavLink}
+                    activeClassName={classes.activeMenuItem}
+                    to="/main-form"
+                  >
+                    FORM
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleMenuClose}
+                    component={NavLink}
+                    activeClassName={classes.activeMenuItem}
+                    to="/class-form"
+                  >
+                    CLASSFORM
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleMenuClose}
+                    component={NavLink}
+                    activeClassName={classes.activeMenuItem}
+                    to="/todo"
+                  >
+                    TODO
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleMenuClose}
+                    component={NavLink}
+                    activeClassName={classes.activeMenuItem}
+                    to="/cats"
+                  >
+                    CATS
+                  </MenuItem>
+                </Menu>
+              </div>
+            </Slide>
+          )}
           <Typography variant="h5" className={classes.title}>
             <RouterLink to="/" className={classes.mainLink}>
               TEST APP
@@ -93,7 +161,7 @@ const Navigation = () => {
           </Typography>
           {isLoggedIn && (
             <>
-              {isFullscreen ? (
+              {isFullscreen && (
                 <Zoom in={isFullscreen} mountOnEnter unmountOnExit>
                   <div>
                     <Link
@@ -143,73 +211,6 @@ const Navigation = () => {
                     </Link>
                   </div>
                 </Zoom>
-              ) : (
-                <Slide
-                  direction="right"
-                  in={!isFullscreen}
-                  mountOnEnter
-                  unmountOnExit
-                >
-                  <div>
-                    <IconButton
-                      color="inherit"
-                      className={classes.menuButton}
-                      edge="start"
-                      aria-label="menu"
-                      onClick={handleMenuOpen}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <Menu
-                      id="menu-appbar"
-                      anchorEl={anchor}
-                      keepMounted
-                      open={Boolean(anchor)}
-                      onClose={handleMenuClose}
-                    >
-                      <MenuItem
-                        onClick={handleMenuClose}
-                        component={NavLink}
-                        activeClassName={classes.activeMenuItem}
-                        to="/users"
-                      >
-                        USERS
-                      </MenuItem>
-                      <MenuItem
-                        onClick={handleMenuClose}
-                        component={NavLink}
-                        activeClassName={classes.activeMenuItem}
-                        to="/main-form"
-                      >
-                        FORM
-                      </MenuItem>
-                      <MenuItem
-                        onClick={handleMenuClose}
-                        component={NavLink}
-                        activeClassName={classes.activeMenuItem}
-                        to="/class-form"
-                      >
-                        CLASSFORM
-                      </MenuItem>
-                      <MenuItem
-                        onClick={handleMenuClose}
-                        component={NavLink}
-                        activeClassName={classes.activeMenuItem}
-                        to="/todo"
-                      >
-                        TODO
-                      </MenuItem>
-                      <MenuItem
-                        onClick={handleMenuClose}
-                        component={NavLink}
-                        activeClassName={classes.activeMenuItem}
-                        to="/cats"
-                      >
-                        CATS
-                      </MenuItem>
-                    </Menu>
-                  </div>
-                </Slide>
               )}
               <Button
                 onClick={handleLogout}

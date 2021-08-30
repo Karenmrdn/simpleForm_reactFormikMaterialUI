@@ -12,11 +12,7 @@ import {
 import Loader from "../../assets/loaders/Loader";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router";
-import {
-  authorize,
-  loginWithFacebook,
-  loginWithGoogle,
-} from "../../store/slices/auth-actions";
+import { authorize, loginWithSocial } from "../../store/slices/auth-actions";
 import { useSelector } from "react-redux";
 import { SiGoogle } from "react-icons/si";
 import { FaFacebookF } from "react-icons/fa";
@@ -33,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  additionalBtn: { width: 170 },
+  additionalBtn: { width: "48%" },
   btnIcon: {
     marginRight: 6,
     width: 32,
@@ -56,11 +52,11 @@ const AuthPage = () => {
   }
 
   const handleGoogleLogin = () => {
-    dispatch(loginWithGoogle());
+    dispatch(loginWithSocial("google"));
   };
 
   const handleFacebookLogin = () => {
-    dispatch(loginWithFacebook());
+    dispatch(loginWithSocial("facebook"));
   };
 
   const handleAuthModeChange = () => {

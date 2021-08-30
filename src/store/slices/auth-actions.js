@@ -20,32 +20,28 @@ export const authorize = (email, password, isLogin) => async (dispatch) => {
   dispatch(authActions.setIsGettingAuthData(false));
 };
 
-export const loginWithGoogle = () => async (dispatch) => {
+export const loginWithSocial = (social) => async (dispatch) => {
   dispatch(authActions.setIsGettingAuthData(true));
 
   try {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    let provider;
+    switch (social) {
+      case "google":
+        provider = new firebase.auth.GoogleAuthProvider();
+        break;
+      case "facebook":
+        provider = new firebase.auth.FacebookAuthProvider();
+        break;
+      default:
+        throw new Error(
+          "Auth social expected as a string in loginWithSocial method."
+        );
+    }
+
     const { user } = await firebase.auth().signInWithPopup(provider);
 
     const token = user.Aa;
     dispatch(authActions.signIn(token));
-  } catch (error) {
-    dispatch(errorActions.setError(error.message));
-  }
-
-  dispatch(authActions.setIsGettingAuthData(false));
-};
-
-export const loginWithFacebook = () => async (dispatch) => {
-  dispatch(authActions.setIsGettingAuthData(true));
-
-  try {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    const { user } = await firebase.auth().signInWithPopup(provider);
-
-    console.log(user);
-    const token = user.Aa;
-    // dispatch(authActions.signIn(token));
   } catch (error) {
     dispatch(errorActions.setError(error.message));
   }
