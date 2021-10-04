@@ -34,7 +34,7 @@ export const loginWithSocial = (social) => async (dispatch) => {
         break;
       default:
         throw new Error(
-          "Auth social expected as a string in loginWithSocial method."
+          "Auth social must be provided as a string in loginWithSocial method."
         );
     }
 
