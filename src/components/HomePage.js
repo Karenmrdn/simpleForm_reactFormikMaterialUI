@@ -15,7 +15,7 @@ const HomePage = () => {
   return (
     <div className={classes.wrapper}>
       <Typography variant="h3" color="primary">
-        Welcome to the test application!
+        Welcome to the web pet project!
       </Typography>
       <img src={catTypingGif} alt="Cat typing on the laptop" />
     </div>
